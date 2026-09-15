@@ -608,10 +608,31 @@
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
           ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 24px "Montserrat", sans-serif';
           ctx.textAlign = 'left';
           ctx.textBaseline = 'middle';
-          ctx.fillText(guestName.toUpperCase(), 1320, 445);
+
+          const nameText = guestName.toUpperCase();
+          const nameX = 1320;
+          const nameY = 445;
+          const nameMaxWidth = 240;
+          const minimumFontSize = 14;
+          let fontSize = 24;
+
+          ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
+          while (fontSize > minimumFontSize && ctx.measureText(nameText).width > nameMaxWidth) {
+            fontSize -= 1;
+            ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
+          }
+
+          let fittedName = nameText;
+          if (ctx.measureText(fittedName).width > nameMaxWidth) {
+            fittedName = `${nameText.slice(0, -1)}...`;
+            while (fittedName.length > 3 && ctx.measureText(fittedName).width > nameMaxWidth) {
+              fittedName = `${fittedName.slice(0, -4)}...`;
+            }
+          }
+
+          ctx.fillText(fittedName, nameX, nameY, nameMaxWidth);
 
           resolve();
         };
