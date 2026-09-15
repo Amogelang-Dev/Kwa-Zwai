@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kwa Zwai Entertainment | Sdumane's House RSVP</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --card-bg: #141416;
+      --card-border: #26262a;
+      --accent-red: #e61c24;
+      --accent-red-hover: #ff2a33;
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(230, 28, 36, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .brand-title {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      text-shadow: 0 0 20px rgba(230, 28, 36, 0.4);
+    }
+
+    .brand-title span { color: var(--accent-red); }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    main {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .event-info-bar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      background: rgba(20, 20, 22, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .info-item { text-align: center; }
+
+    .info-item .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-red);
+      font-weight: 800;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .info-item .val {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .poster-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(230, 28, 36, 0.15);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .poster-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .rsvp-trigger-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
+      color: #ffffff;
+      padding: 18px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(230, 28, 36, 0.5);
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+
+    .rsvp-trigger-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, var(--accent-red-hover) 0%, var(--accent-red) 100%);
+      box-shadow: 0 12px 35px rgba(230, 28, 36, 0.7);
+    }
+
+    .toggle-details-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .toggle-details-btn:hover {
+      border-color: var(--accent-red);
+      color: #fff;
+    }
+
+    .toggle-details-btn .arrow { transition: transform 0.3s ease; }
+    .toggle-details-btn.active .arrow { transform: rotate(180deg); }
+
+    .venue-details-container {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .venue-details-container.show { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #fff;
+      margin-bottom: 12px;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background: var(--accent-red);
+      border-radius: 2px;
+    }
+
+    .venue-gallery {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      height: 120px;
+      background: var(--card-bg);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .gallery-item .overlay-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border-left: 2px solid var(--accent-red);
+    }
+
+    .map-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .map-card iframe {
+      width: 100%;
+      height: 250px;
+      border: 0;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 8, 0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(230, 28, 36, 0.3);
+      border-radius: 20px;
+      padding: 28px;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(230, 28, 36, 0.2);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      text-align: center;
+    }
+
+    .modal-overlay.active .modal-card { transform: scale(1); }
+
+    .modal-card h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .modal-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close-btn:hover { color: var(--accent-red); }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      background-color: #0a0a0c;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus { border-color: var(--accent-red); }
+
+    .submit-btn, .download-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(230, 28, 36, 0.4);
+    }
+
+    .submit-btn:hover, .download-btn:hover { 
+      background: linear-gradient(135deg, var(--accent-red-hover) 0%, var(--accent-red) 100%);
+    }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    #ticketSuccessArea {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ticket-preview-box {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      background: #000;
+    }
+
+    .ticket-preview-box canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .success-badge {
+      background: rgba(230, 28, 36, 0.15);
+      color: #ff3b44;
+      border: 1px solid rgba(230, 28, 36, 0.4);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: inline-block;
+      margin-bottom: 10px;
+      box-shadow: 0 0 15px rgba(230, 28, 36, 0.2);
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 30px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-subtitle">Kwa Zwai Entertainment Presents</div>
+    <div class="brand-title">SDUMANE'S <span>HOUSE</span></div>
+  </header>
+
+  <main>
+    <div class="event-info-bar">
+      <div class="info-item">
+        <span class="label">Date</span>
+        <span class="val">SAT 26 SEP</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Time</span>
+        <span class="val">6PM - 6AM</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Venue</span>
+        <span class="val">Cuba Lounge Blk</span>
+      </div>
+    </div>
+
+    <div class="poster-card">
+      <img src="images/kwazwai.jpeg" alt="Sdumane's House Event Poster" id="eventPoster" />
+    </div>
+
+    <button class="rsvp-trigger-btn" onclick="openModal()">Reserve Your Spot</button>
+
+    <button class="toggle-details-btn" id="toggleBtn" onclick="toggleVenueDetails()">
+      <span id="toggleText">Show Location & Venue Details</span>
+      <span class="arrow">▼</span>
+    </button>
+
+    <div class="venue-details-container" id="venueDetails">
+      <div class="section-title">Cuba Lounge Vibe</div>
+      <div class="venue-gallery">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Lounge Interior" />
+          <span class="overlay-tag">Rooftop Lounge</span>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=600&q=80" alt="Cocktail Bar" />
+          <span class="overlay-tag">Cocktail Bar</span>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=600&q=80" alt="Night Atmosphere" />
+          <span class="overlay-tag">VIP Section</span>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Party Lights" />
+          <span class="overlay-tag">Party Vibe</span>
+        </div>
+      </div>
+
+      <div class="section-title">Location & Venue</div>
+      <div class="map-card">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3409.2853693016746!2d28.115242675190714!3d-25.97607367721783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e956f00159cbb19%3A0x5fbed93ff8051748!2sCuba%20Lounge%20Blk!5e1!3m2!1sen!2sza!4v1789488755917!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      
+      <div id="rsvpFormArea">
+        <h2>Confirm Attendance</h2>
+        <p>Lock in your spot for Sdumane's House Rooftop Restaurant Party.</p>
+
+        <form id="rsvpForm">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="e.g. Kwa Zwai" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="kwazwai@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="e.g. 079 076 9095" required />
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Confirm RSVP</button>
+        </form>
+      </div>
+
+      <div id="ticketSuccessArea">
+        <span class="success-badge">✓ RSVP CONFIRMED</span>
+        <h2>YOUR EVENT PASS</h2>
+        <p>Here is your official ticket. Click below to download it to your device.</p>
+        
+        <div class="ticket-preview-box">
+          <canvas id="ticketCanvas" width="1600" height="716"></canvas>
+        </div>
+
+        <button type="button" class="download-btn" id="downloadTicketBtn">DOWNLOAD YOUR TICKET</button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Powered by SyreTech Solutions &copy; All rights reserved.
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBn3Fgzpl2SWrSCEIuu7dP4478vt75T6lE",
+      authDomain: "syreevent.firebaseapp.com",
+      projectId: "syreevent",
+      storageBucket: "syreevent.firebasestorage.app",
+      messagingSenderId: "382314791966",
+      appId: "1:382314791966:web:5acb87ea7507d4e1c39a0f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let currentGuestName = "GUEST";
+
+    window.openModal = () => document.getElementById('modalOverlay').classList.add('active');
+    window.closeModal = () => document.getElementById('modalOverlay').classList.remove('active');
+
+    window.toggleVenueDetails = () => {
+      const detailsContainer = document.getElementById('venueDetails');
+      const toggleBtn = document.getElementById('toggleBtn');
+      const toggleText = document.getElementById('toggleText');
+
+      detailsContainer.classList.toggle('show');
+      toggleBtn.classList.toggle('active');
+
+      if (detailsContainer.classList.contains('show')) {
+        toggleText.innerText = 'Hide Location & Venue Details';
+      } else {
+        toggleText.innerText = 'Show Location & Venue Details';
+      }
+    };
+
+    // Dedicated global download function
+    window.downloadTicket = () => {
+      const canvas = document.getElementById('ticketCanvas');
+      const fileName = `Sdumane_House_Ticket_${currentGuestName.trim().replace(/\s+/g, '_')}.png`;
+      const imageUri = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+
+      link.href = imageUri;
+      link.download = fileName;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    document.getElementById('downloadTicketBtn').addEventListener('click', window.downloadTicket);
+
+    function generateTicketCanvas(guestName) {
+      return new Promise((resolve, reject) => {
+        const canvas = document.getElementById('ticketCanvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        img.onload = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 24px "Montserrat", sans-serif';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(guestName.toUpperCase(), 1320, 445);
+
+          resolve();
+        };
+
+        img.onerror = (err) => {
+          console.error("Failed to load ticket template image at 'images/kwazwai ticket.jpeg'", err);
+          alert("Ticket template image could not be loaded. Make sure 'images/kwazwai ticket.jpeg' exists in your project folder.");
+          reject(err);
+        };
+
+        img.src = 'images/kwazwai ticket.jpeg';
+      });
+    }
+
+    document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Generating Ticket...';
+
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      currentGuestName = name;
+
+      try {
+        await addDoc(collection(db, "rsvps"), {
+          name: name,
+          email: email,
+          phone: phone,
+          timestamp: serverTimestamp()
+        });
+
+        await generateTicketCanvas(name);
+
+        document.getElementById('rsvpFormArea').style.display = 'none';
+        document.getElementById('ticketSuccessArea').style.display = 'flex';
+
+      } catch (error) {
+        console.error("Error saving RSVP or rendering ticket: ", error);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Confirm RSVP';
+      }
+    });
+  </script>
+</body>
+</html>
