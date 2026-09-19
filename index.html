@@ -178,6 +178,148 @@
 
     .venue-details-container.show { display: flex; }
 
+    .lineup-section {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .lineup-carousel {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .lineup-slides {
+      display: flex;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
+
+    .lineup-slide {
+      position: relative;
+      min-width: 100%;
+      height: 340px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .lineup-slide img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(1.1) brightness(0.72);
+    }
+
+    .lineup-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 10, 12, 0.08) 0%, rgba(10, 10, 12, 0.8) 100%);
+    }
+
+    .lineup-content {
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: 1;
+      padding: 20px 18px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+    }
+
+    .lineup-copy {
+      max-width: 78%;
+    }
+
+    .lineup-tag {
+      display: inline-block;
+      background: rgba(230, 28, 36, 0.15);
+      color: #ff6a6f;
+      border: 1px solid rgba(230, 28, 36, 0.35);
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+    }
+
+    .lineup-name {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 900;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .lineup-role {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f4f4f5;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .lineup-nav {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2;
+      display: flex;
+      gap: 8px;
+    }
+
+    .lineup-arrow {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lineup-arrow:hover {
+      border-color: rgba(230, 28, 36, 0.7);
+      background: rgba(230, 28, 36, 0.25);
+    }
+
+    .lineup-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .lineup-dot {
+      width: 10px;
+      height: 10px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lineup-dot.active {
+      background: var(--accent-red);
+      box-shadow: 0 0 12px rgba(230, 28, 36, 0.65);
+      transform: scale(1.15);
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -462,6 +604,81 @@
       <img src="images/kwazwai.jpeg" alt="Sdumane's House Event Poster" id="eventPoster" />
     </div>
 
+    <section class="lineup-section" aria-label="Event lineup">
+      <div class="section-title">Lineup</div>
+
+      <div class="lineup-carousel" aria-live="polite">
+        <div class="lineup-slides" id="lineupSlides">
+          <article class="lineup-slide">
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80" alt="DJ Kairo performing live" />
+            <div class="lineup-content">
+              <div class="lineup-copy">
+                <span class="lineup-tag">Main Stage</span>
+                <h3 class="lineup-name">DJ Kairo</h3>
+                <p class="lineup-role">Sunset to midnight set</p>
+              </div>
+            </div>
+            <div class="lineup-nav">
+              <button class="lineup-arrow" type="button" data-dir="prev" aria-label="Previous artist">&#8249;</button>
+              <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
+            </div>
+          </article>
+
+          <article class="lineup-slide">
+            <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80" alt="Sdumane performing at the rooftop party" />
+            <div class="lineup-content">
+              <div class="lineup-copy">
+                <span class="lineup-tag">Host</span>
+                <h3 class="lineup-name">Sdumane</h3>
+                <p class="lineup-role">The house vibes curator</p>
+              </div>
+            </div>
+            <div class="lineup-nav">
+              <button class="lineup-arrow" type="button" data-dir="prev" aria-label="Previous artist">&#8249;</button>
+              <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
+            </div>
+          </article>
+
+          <article class="lineup-slide">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80" alt="House DJ set with neon lights" />
+            <div class="lineup-content">
+              <div class="lineup-copy">
+                <span class="lineup-tag">Guest Set</span>
+                <h3 class="lineup-name">Melo Vibe</h3>
+                <p class="lineup-role">Late-night groove takeover</p>
+              </div>
+            </div>
+            <div class="lineup-nav">
+              <button class="lineup-arrow" type="button" data-dir="prev" aria-label="Previous artist">&#8249;</button>
+              <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
+            </div>
+          </article>
+
+          <article class="lineup-slide">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80" alt="Singer with a vibrant stage performance" />
+            <div class="lineup-content">
+              <div class="lineup-copy">
+                <span class="lineup-tag">Special Guest</span>
+                <h3 class="lineup-name">Nadia Noir</h3>
+                <p class="lineup-role">Signature vocals & energy</p>
+              </div>
+            </div>
+            <div class="lineup-nav">
+              <button class="lineup-arrow" type="button" data-dir="prev" aria-label="Previous artist">&#8249;</button>
+              <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="lineup-dots" aria-label="Lineup slide navigation">
+        <button class="lineup-dot active" type="button" aria-label="Show lineup slide 1"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 2"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 3"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 4"></button>
+      </div>
+    </section>
+
     <button class="rsvp-trigger-btn" onclick="openModal()">Reserve Your Spot</button>
 
     <button class="toggle-details-btn" id="toggleBtn" onclick="toggleVenueDetails()">
@@ -523,7 +740,7 @@
 
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="e.g. 0** **** ***" required />
+            <input type="tel" id="phone" placeholder="e.g. 079 076 9095" required />
           </div>
 
           <button type="submit" class="submit-btn" id="submitBtn">Confirm RSVP</button>
@@ -549,23 +766,54 @@
     Powered by SyreTech Solutions &copy; All rights reserved.
   </footer>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBn3Fgzpl2SWrSCEIuu7dP4478vt75T6lE",
-      authDomain: "syreevent.firebaseapp.com",
-      projectId: "syreevent",
-      storageBucket: "syreevent.firebasestorage.app",
-      messagingSenderId: "382314791966",
-      appId: "1:382314791966:web:5acb87ea7507d4e1c39a0f"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
+  <script>
+    const RSVP_STORAGE_KEY = 'kwazwai_rsvps';
     let currentGuestName = "GUEST";
+
+    function saveRsvpToBrowser(entry) {
+      const existing = JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || '[]');
+      const updated = [...existing, entry];
+      localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updated));
+    }
+
+    const lineupTrack = document.getElementById('lineupSlides');
+    const lineupSlides = Array.from(document.querySelectorAll('.lineup-slide'));
+    const lineupDots = Array.from(document.querySelectorAll('.lineup-dot'));
+    const lineupArrows = Array.from(document.querySelectorAll('.lineup-arrow'));
+    let activeLineupIndex = 0;
+    let lineupAutoRotate;
+
+    function updateLineupSlide(index) {
+      activeLineupIndex = (index + lineupSlides.length) % lineupSlides.length;
+      lineupTrack.style.transform = `translateX(-${activeLineupIndex * 100}%)`;
+      lineupDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeLineupIndex);
+      });
+    }
+
+    function startLineupRotation() {
+      clearInterval(lineupAutoRotate);
+      lineupAutoRotate = setInterval(() => {
+        updateLineupSlide(activeLineupIndex + 1);
+      }, 4000);
+    }
+
+    lineupArrows.forEach((button) => {
+      button.addEventListener('click', () => {
+        const direction = button.dataset.dir === 'next' ? 1 : -1;
+        updateLineupSlide(activeLineupIndex + direction);
+        startLineupRotation();
+      });
+    });
+
+    lineupDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        updateLineupSlide(index);
+        startLineupRotation();
+      });
+    });
+
+    startLineupRotation();
 
     window.openModal = () => document.getElementById('modalOverlay').classList.add('active');
     window.closeModal = () => document.getElementById('modalOverlay').classList.remove('active');
@@ -667,13 +915,16 @@
       currentGuestName = preferredName;
 
       try {
-        await addDoc(collection(db, "rsvps"), {
+        const entry = {
           name: name,
           preferredName: preferredName,
           email: email,
           phone: phone,
-          timestamp: serverTimestamp()
-        });
+          timestamp: new Date().toISOString()
+        };
+
+        const existing = JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || '[]');
+        localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify([...existing, entry]));
 
         await generateTicketCanvas(preferredName);
 
@@ -682,6 +933,7 @@
 
       } catch (error) {
         console.error("Error saving RSVP or rendering ticket: ", error);
+        alert('The RSVP could not be saved. Please try again.');
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = 'Confirm RSVP';
