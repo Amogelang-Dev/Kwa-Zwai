@@ -213,16 +213,17 @@
     .lineup-slide {
       position: relative;
       min-width: 100%;
-      height: 340px;
+      height: auto;
+      min-height: 340px;
       background: #000;
       overflow: hidden;
     }
 
     .lineup-slide img {
       width: 100%;
-      height: 100%;
+      height: auto;
       display: block;
-      object-fit: cover;
+      object-fit: contain;
       filter: saturate(1.1) brightness(0.72);
     }
 
@@ -620,13 +621,17 @@
       <img src="images/kwazwai.jpeg" alt="Sdumane's House Event Poster" id="eventPoster" />
     </div>
 
-              <article class="lineup-slide">
-            <img src="images/jealous boys.jpeg" alt="Jealous Boys" />
+    <section class="lineup-section" aria-label="Event lineup">
+      <div class="section-title">Lineup</div>
+
+      <div class="lineup-carousel" aria-live="polite">
+        <div class="lineup-slides" id="lineupSlides">
+          <article class="lineup-slide">
+            <img src="images/jealous%20boys.jpeg" alt="Jealous Boys" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">MCs</span>
                 <h3 class="lineup-name">Jealous Boys</h3>
-                <p class="lineup-role">The house vibes curator</p>
               </div>
             </div>
             <div class="lineup-nav">
@@ -635,15 +640,11 @@
             </div>
           </article>
 
-    <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/dj brock.jpeg" alt="DJ Brock performing live" />
+            <img src="images/dj%20brock.jpeg" alt="DJ Brock performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">DJ</span>
                 <h3 class="lineup-name">DJ Brock</h3>
               </div>
             </div>
@@ -653,15 +654,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/dj drippyrsa.jpeg.jpeg" alt="DJ Drippyrsa performing live" />
+            <img src="images/dj%20drippyrsa.jpeg" alt="DJ Drippyrsa performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">DJ</span>
                 <h3 class="lineup-name">DJ Drippyrsa</h3>
               </div>
             </div>
@@ -671,15 +668,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/dj wan1.jpeg.jpeg" alt="DJ Wan1 performing live" />
+            <img src="images/dj%20wan1.jpeg" alt="DJ Wan1 performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">DJ</span>
                 <h3 class="lineup-name">DJ Wan1</h3>
               </div>
             </div>
@@ -689,15 +682,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/djy msanda x djy saint.jpeg.jpeg" alt="DJ Msanda x DJ Saint performing live" />
+            <img src="images/djy%20msanda%20x%20djy%20saint.jpeg" alt="DJ Msanda x DJ Saint performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">Set</span>
                 <h3 class="lineup-name">DJ Msanda x DJ Saint</h3>
               </div>
             </div>
@@ -707,15 +696,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/kobe x shaun.jpeg.jpeg" alt="Kobe x Shaun performing live" />
+            <img src="images/kobe%20x%20shaun.jpeg" alt="Kobe x Shaun performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">Live</span>
                 <h3 class="lineup-name">Kobe x Shaun</h3>
               </div>
             </div>
@@ -725,15 +710,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/lostbxy dj.jpeg" alt="Lostbxy DJ performing live" />
+            <img src="images/lostbxy%20dj.jpeg" alt="Lostbxy DJ performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">DJ</span>
                 <h3 class="lineup-name">Lostbxy DJ</h3>
               </div>
             </div>
@@ -743,15 +724,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
             <img src="images/nomade.jpeg" alt="Nomade performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">LIVE</span>
                 <h3 class="lineup-name">Nomade</h3>
               </div>
             </div>
@@ -761,16 +738,12 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/papi chilo & manandothedj.jpeg" alt="Papi Chilo & Manandothedj performing live" />
+            <img src="images/papi%20chilo%20%26%20manandothedj.jpeg" alt="Papi Chilo and Manandothedj performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
-                <h3 class="lineup-name">Papi Chilo & Manandothedj</h3>
+                <span class="lineup-tag">Pair</span>
+                <h3 class="lineup-name">Papi Chilo &amp; Manandothedj</h3>
               </div>
             </div>
             <div class="lineup-nav">
@@ -779,15 +752,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
             <img src="images/s.o.s.jpeg" alt="S.O.S performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">Live</span>
                 <h3 class="lineup-name">S.O.S</h3>
               </div>
             </div>
@@ -797,15 +766,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/sammy saucee.jpeg" alt="Sammy Saucee performing live" />
+            <img src="images/sammy%20saucee.jpeg" alt="Sammy Saucee performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">DJ</span>
                 <h3 class="lineup-name">Sammy Saucee</h3>
               </div>
             </div>
@@ -815,15 +780,11 @@
             </div>
           </article>
 
-              <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
-
-      <div class="lineup-carousel" aria-live="polite">
-        <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/team royal djs.jpeg" alt="Team Royal DJS performing live" />
+            <img src="images/team%20royal%20djs.jpeg" alt="Team Royal DJS performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
+                <span class="lineup-tag">Crew</span>
                 <h3 class="lineup-name">Team Royal DJS</h3>
               </div>
             </div>
@@ -832,10 +793,6 @@
               <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
             </div>
           </article>
-
-
-
-
         </div>
       </div>
 
@@ -844,6 +801,14 @@
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 2"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 3"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 4"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 5"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 6"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 7"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 8"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 9"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 10"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 11"></button>
+        <button class="lineup-dot" type="button" aria-label="Show lineup slide 12"></button>
       </div>
     </section>
 
