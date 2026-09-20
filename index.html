@@ -130,6 +130,75 @@
       display: block;
     }
 
+    .info-links-wrap {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 16px;
+    }
+
+    .info-link-card {
+      width: 100%;
+      background: rgba(20, 20, 22, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-link-card:hover,
+    .info-link-card:focus-visible {
+      border-color: var(--accent-red);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(230, 28, 36, 0.12);
+      outline: none;
+    }
+
+    .info-link-card .copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .info-link-card .eyebrow {
+      font-size: 0.56rem;
+      font-weight: 800;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .info-link-card .title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .info-link-card .cta {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
+      color: white;
+      padding: 7px 9px;
+      border-radius: 999px;
+      font-size: 0.58rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
     .rsvp-trigger-btn {
       width: 100%;
       background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
@@ -183,16 +252,120 @@
 
     .venue-details-container {
       width: 100%;
-      display: none;
+      display: flex;
       flex-direction: column;
       animation: fadeIn 0.4s ease;
     }
 
     .venue-details-container.show { display: flex; }
 
+    .detail-panel {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .detail-toggle-btn {
+      width: 100%;
+      background: rgba(20, 20, 22, 0.75);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .detail-toggle-btn:hover,
+    .detail-toggle-btn:focus-visible {
+      color: #fff;
+      border-color: var(--accent-red);
+      outline: none;
+    }
+
+    .detail-toggle-btn .detail-arrow {
+      transition: transform 0.25s ease;
+    }
+
+    .detail-panel.collapsed .detail-toggle-btn .detail-arrow {
+      transform: rotate(-90deg);
+    }
+
+    .detail-body {
+      display: block;
+      animation: fadeIn 0.3s ease;
+      margin-top: 12px;
+    }
+
+    .detail-panel.collapsed .detail-body {
+      display: none;
+    }
+
     .lineup-section {
       width: 100%;
       margin-bottom: 24px;
+    }
+
+    .lineup-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lineup-heading .section-title {
+      margin-bottom: 0;
+    }
+
+    .lineup-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--text-muted);
+      font: inherit;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .lineup-toggle-btn:hover,
+    .lineup-toggle-btn:focus-visible {
+      color: #fff;
+      border-color: var(--accent-red);
+      outline: none;
+    }
+
+    .lineup-toggle-btn .arrow {
+      transition: transform 0.25s ease;
+    }
+
+    .lineup-toggle-btn.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    .lineup-panel {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .lineup-panel.show {
+      display: block;
     }
 
     .lineup-carousel {
@@ -361,45 +534,40 @@
       border-radius: 2px;
     }
 
-    .venue-gallery {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .gallery-item {
+    .venue-video-wrapper {
       position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-      height: 120px;
+      width: min(100%, 330px);
+      height: 440px;
       background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      margin: 0 auto 30px;
     }
 
-    .gallery-item img {
+    .venue-video-wrapper iframe {
+      display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
+      border: 0;
+      background: #000;
     }
 
-    .gallery-item:hover img { transform: scale(1.08); }
-
-    .gallery-item .overlay-tag {
+    .venue-video-label {
       position: absolute;
-      bottom: 8px;
-      left: 8px;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
+      left: 14px;
+      bottom: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(230, 28, 36, 0.4);
+      border-left: 3px solid var(--accent-red);
       color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 10px;
+      border-radius: 6px;
       text-transform: uppercase;
-      border-left: 2px solid var(--accent-red);
     }
 
     .map-card {
@@ -588,6 +756,46 @@
       color: var(--text-muted);
       text-align: center;
     }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .footer-link {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-link:hover,
+    .footer-link:focus-visible {
+      color: var(--accent-red);
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .footer-link svg {
+      width: 19px;
+      height: 19px;
+      fill: currentColor;
+    }
+
+    .footer-link.email-icon svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
   </style>
 </head>
 <body>
@@ -601,7 +809,7 @@
     <div class="event-info-bar">
       <div class="info-item">
         <span class="label">Date</span>
-        <span class="val">SAT 26 SEP</span>
+        <span class="val">FRI 25 SEP</span>
       </div>
       <div class="info-item">
         <span class="label">Time</span>
@@ -618,16 +826,23 @@
     </div>
 
     <div class="poster-card">
-      <img src="images/kwazwai.jpeg" alt="Sdumane's House Event Poster" id="eventPoster" />
+      <img src="images/main-poster.jpeg" alt="Sdumane's House Event Poster" id="eventPoster" />
     </div>
 
     <section class="lineup-section" aria-label="Event lineup">
-      <div class="section-title">Lineup</div>
+      <div class="lineup-heading">
+        <div class="section-title">Lineup</div>
+        <button class="lineup-toggle-btn" id="lineupToggle" type="button" aria-expanded="false" aria-controls="lineupPanel">
+          <span id="lineupToggleText">Show Lineup</span>
+          <span class="arrow">▼</span>
+        </button>
+      </div>
 
-      <div class="lineup-carousel" aria-live="polite">
+      <div class="lineup-panel" id="lineupPanel">
+        <div class="lineup-carousel" aria-live="polite">
         <div class="lineup-slides" id="lineupSlides">
           <article class="lineup-slide">
-            <img src="images/jealous%20boys.jpeg" alt="Jealous Boys" />
+            <img src="images/jealous boys.png" alt="Jealous Boys" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">MCs</span>
@@ -641,7 +856,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/dj%20brock.jpeg" alt="DJ Brock performing live" />
+            <img src="images/dj brock.png" alt="DJ Brock performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">DJ</span>
@@ -655,7 +870,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/dj%20drippyrsa.jpeg" alt="DJ Drippyrsa performing live" />
+            <img src="images/dj drippyrsa.png" alt="DJ Drippyrsa performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">DJ</span>
@@ -669,7 +884,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/dj%20wan1.jpeg" alt="DJ Wan1 performing live" />
+            <img src="images/dj wan1.png" alt="DJ Wan1 performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">DJ</span>
@@ -683,7 +898,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/djy%20msanda%20x%20djy%20saint.jpeg" alt="DJ Msanda x DJ Saint performing live" />
+            <img src="images/djy msanda x djy saint.png" alt="DJ Msanda x DJ Saint performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">Set</span>
@@ -697,7 +912,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/kobe%20x%20shaun.jpeg" alt="Kobe x Shaun performing live" />
+            <img src="images/kobe x shaun.png" alt="Kobe x Shaun performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">Live</span>
@@ -711,21 +926,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/lostbxy%20dj.jpeg" alt="Lostbxy DJ performing live" />
-            <div class="lineup-content">
-              <div class="lineup-copy">
-                <span class="lineup-tag">DJ</span>
-                <h3 class="lineup-name">Lostbxy DJ</h3>
-              </div>
-            </div>
-            <div class="lineup-nav">
-              <button class="lineup-arrow" type="button" data-dir="prev" aria-label="Previous artist">&#8249;</button>
-              <button class="lineup-arrow" type="button" data-dir="next" aria-label="Next artist">&#8250;</button>
-            </div>
-          </article>
-
-          <article class="lineup-slide">
-            <img src="images/nomade.jpeg" alt="Nomade performing live" />
+            <img src="images/nomade.png" alt="Nomade performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">LIVE</span>
@@ -739,7 +940,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/papi%20chilo%20%26%20manandothedj.jpeg" alt="Papi Chilo and Manandothedj performing live" />
+            <img src="images/papi chulo & manandothedj.png" alt="Papi Chilo and Manandothedj performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">Pair</span>
@@ -753,7 +954,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/s.o.s.jpeg" alt="S.O.S performing live" />
+            <img src="images/s.o.s.png" alt="S.O.S performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">Live</span>
@@ -767,7 +968,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/sammy%20saucee.jpeg" alt="Sammy Saucee performing live" />
+            <img src="images/sammy saucee.png" alt="Sammy Saucee performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">DJ</span>
@@ -781,7 +982,7 @@
           </article>
 
           <article class="lineup-slide">
-            <img src="images/team%20royal%20djs.jpeg" alt="Team Royal DJS performing live" />
+            <img src="images/team royal djs.png" alt="Team Royal DJS performing live" />
             <div class="lineup-content">
               <div class="lineup-copy">
                 <span class="lineup-tag">Crew</span>
@@ -794,9 +995,9 @@
             </div>
           </article>
         </div>
-      </div>
+        </div>
 
-      <div class="lineup-dots" aria-label="Lineup slide navigation">
+        <div class="lineup-dots" aria-label="Lineup slide navigation">
         <button class="lineup-dot active" type="button" aria-label="Show lineup slide 1"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 2"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 3"></button>
@@ -809,40 +1010,59 @@
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 10"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 11"></button>
         <button class="lineup-dot" type="button" aria-label="Show lineup slide 12"></button>
+        </div>
       </div>
     </section>
 
+    <div class="info-links-wrap">
+      <a class="info-link-card" href="https://www.canva.com/design/DAHVYjCwNL4/p29poLIbyO0WAuQO5fJ1uw/view?utm_content=DAHVYjCwNL4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2b8615ff07" target="_blank" rel="noopener">
+        <div class="copy">
+          <span class="eyebrow">Menu</span>
+          <span class="title">Alcohol</span>
+        </div>
+        <span class="cta">Open</span>
+      </a>
+
+      <a class="info-link-card" href="https://www.canva.com/design/DAHVpadF3gw/f4RQFAMPLlUBQDTgfjsgmA/view?utm_content=DAHVpadF3gw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he3441c6722" target="_blank" rel="noopener">
+        <div class="copy">
+          <span class="eyebrow">Rules</span>
+          <span class="title">Bookings</span>
+        </div>
+        <span class="cta">Open</span>
+      </a>
+    </div>
+
     <button class="rsvp-trigger-btn" onclick="openModal()">Reserve Your Spot</button>
 
-    <button class="toggle-details-btn" id="toggleBtn" onclick="toggleVenueDetails()">
-      <span id="toggleText">Show Location & Venue Details</span>
-      <span class="arrow">▼</span>
-    </button>
+    <div class="venue-details-container show" id="venueDetails">
+      <button class="toggle-details-btn" id="toggleBtn" onclick="toggleVenueDetails()">
+        <span id="toggleText">Hide Location & Venue Details</span>
+        <span class="arrow">▼</span>
+      </button>
 
-    <div class="venue-details-container" id="venueDetails">
-      <div class="section-title">Cuba Lounge Vibe</div>
-      <div class="venue-gallery">
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Lounge Interior" />
-          <span class="overlay-tag">Rooftop Lounge</span>
+      <div class="detail-body" id="venueBody">
+        <div class="detail-panel" id="venuePanel">
+          <div class="section-title">Cuba Lounge Vibe</div>
+          <div class="venue-video-wrapper">
+            <iframe
+              src="https://www.instagram.com/reel/DddmzE0KKLk/embed/"
+              title="Cuba Lounge venue reel"
+              allowfullscreen
+              scrolling="no"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              aria-label="Cuba Lounge venue reel"
+            ></iframe>
+            <span class="venue-video-label">Venue Highlights</span>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=600&q=80" alt="Cocktail Bar" />
-          <span class="overlay-tag">Cocktail Bar</span>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=600&q=80" alt="Night Atmosphere" />
-          <span class="overlay-tag">VIP Section</span>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Party Lights" />
-          <span class="overlay-tag">Party Vibe</span>
-        </div>
-      </div>
 
-      <div class="section-title">Location & Venue</div>
-      <div class="map-card">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3409.2853693016746!2d28.115242675190714!3d-25.97607367721783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e956f00159cbb19%3A0x5fbed93ff8051748!2sCuba%20Lounge%20Blk!5e1!3m2!1sen!2sza!4v1789488755917!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="detail-panel" id="mapPanel">
+          <div class="section-title">Location & Venue</div>
+          <div class="map-card">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3409.2853693016746!2d28.115242675190714!3d-25.97607367721783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e956f00159cbb19%3A0x5fbed93ff8051748!2sCuba%20Lounge%20Blk!5e1!3m2!1sen!2sza!4v1789488755917!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -896,12 +1116,23 @@
   </div>
 
   <footer>
+    <div class="footer-links" aria-label="Contact and social media links">
+      <a class="footer-link email-icon" href="mailto:info@kwazwai.com" aria-label="Email Kwa Zwai" title="Email Kwa Zwai">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
+      </a>
+      <a class="footer-link" href="https://www.instagram.com/kwazwai.events?stkn=M2Z5dHZhM2Q1bDZp&utm_source=qr" target="_blank" rel="noopener" aria-label="Kwa Zwai on Instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5ZM17.5 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.5 6Z"></path></svg>
+      </a>
+      <a class="footer-link" href="https://www.tiktok.com/@kwa.zwai.events" target="_blank" rel="noopener" aria-label="Kwa Zwai on TikTok" title="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3h3a5.5 5.5 0 0 0 2.5 3.2v3.1a8.5 8.5 0 0 1-5.5-2V15a5.5 5.5 0 1 1-5.5-5.5h.5v3.1a2.5 2.5 0 1 0 2 2.4V3h3Z"></path></svg>
+      </a>
+    </div>
     Powered by SyreTech Solutions &copy; All rights reserved.
   </footer>
 
   <script>
     const RSVP_STORAGE_KEY = 'kwazwai_rsvps';
-    const eventStart = new Date('2026-09-26T18:00:00');
+    const eventStart = new Date('2026-09-25T18:00:00');
     let currentGuestName = "GUEST";
 
     function updateCountdown() {
@@ -936,6 +1167,9 @@
     const lineupSlides = Array.from(document.querySelectorAll('.lineup-slide'));
     const lineupDots = Array.from(document.querySelectorAll('.lineup-dot'));
     const lineupArrows = Array.from(document.querySelectorAll('.lineup-arrow'));
+    const lineupPanel = document.getElementById('lineupPanel');
+    const lineupToggle = document.getElementById('lineupToggle');
+    const lineupToggleText = document.getElementById('lineupToggleText');
     let activeLineupIndex = 0;
     let lineupAutoRotate;
 
@@ -954,6 +1188,23 @@
       }, 4000);
     }
 
+    function stopLineupRotation() {
+      clearInterval(lineupAutoRotate);
+    }
+
+    lineupToggle.addEventListener('click', () => {
+      const isOpen = lineupPanel.classList.toggle('show');
+      lineupToggle.classList.toggle('active', isOpen);
+      lineupToggle.setAttribute('aria-expanded', String(isOpen));
+      lineupToggleText.textContent = isOpen ? 'Hide Lineup' : 'Show Lineup';
+
+      if (isOpen) {
+        startLineupRotation();
+      } else {
+        stopLineupRotation();
+      }
+    });
+
     lineupArrows.forEach((button) => {
       button.addEventListener('click', () => {
         const direction = button.dataset.dir === 'next' ? 1 : -1;
@@ -969,8 +1220,6 @@
       });
     });
 
-    startLineupRotation();
-
     window.openModal = () => document.getElementById('modalOverlay').classList.add('active');
     window.closeModal = () => document.getElementById('modalOverlay').classList.remove('active');
 
@@ -978,16 +1227,37 @@
       const detailsContainer = document.getElementById('venueDetails');
       const toggleBtn = document.getElementById('toggleBtn');
       const toggleText = document.getElementById('toggleText');
+      const shouldShow = !detailsContainer.classList.contains('show');
 
-      detailsContainer.classList.toggle('show');
-      toggleBtn.classList.toggle('active');
+      detailsContainer.classList.toggle('show', shouldShow);
+      toggleBtn.classList.toggle('active', shouldShow);
+      toggleText.innerText = shouldShow ? 'Hide Location & Venue Details' : 'Show Location & Venue Details';
 
-      if (detailsContainer.classList.contains('show')) {
-        toggleText.innerText = 'Hide Location & Venue Details';
-      } else {
-        toggleText.innerText = 'Show Location & Venue Details';
+      if (!shouldShow) {
+        document.getElementById('venuePanel').classList.add('collapsed');
+        document.getElementById('mapPanel').classList.add('collapsed');
       }
     };
+
+    document.querySelectorAll('.detail-toggle-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        const panel = button.closest('.detail-panel');
+        const isCollapsed = panel.classList.toggle('collapsed');
+        button.setAttribute('aria-expanded', String(!isCollapsed));
+
+        const detailsContainer = document.getElementById('venueDetails');
+        if (!detailsContainer.classList.contains('show')) {
+          detailsContainer.classList.add('show');
+          document.getElementById('toggleBtn').classList.add('active');
+          document.getElementById('toggleText').innerText = 'Hide Location & Venue Details';
+        }
+      });
+    });
+
+    const venueVideo = document.querySelector('.venue-video-wrapper iframe');
+    if (venueVideo) {
+      venueVideo.src = venueVideo.src;
+    }
 
     // Dedicated global download function
     window.downloadTicket = () => {
