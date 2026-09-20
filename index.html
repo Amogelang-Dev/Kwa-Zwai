@@ -255,6 +255,19 @@
       box-shadow: 0 12px 35px rgba(230, 28, 36, 0.7);
     }
 
+    .rsvp-count {
+      width: 100%;
+      display: block;
+      margin: 10px 0 0;
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
     .toggle-details-btn {
       width: 100%;
       background: transparent;
@@ -835,6 +848,58 @@
       stroke: currentColor;
       stroke-width: 1.8;
     }
+
+    .syretech-trigger {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent-red);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .syretech-trigger:hover,
+    .syretech-trigger:focus-visible {
+      color: var(--accent-red-hover);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .syretech-contact {
+      display: none;
+      width: min(100%, 320px);
+      margin: 12px auto 0;
+      padding: 12px;
+      background: rgba(20, 20, 22, 0.9);
+      border: 1px solid rgba(230, 28, 36, 0.35);
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+
+    .syretech-contact.show {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .syretech-contact strong {
+      display: block;
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+
+    .syretech-contact a {
+      color: var(--text-muted);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .syretech-contact a:hover,
+    .syretech-contact a:focus-visible {
+      color: var(--accent-red-hover);
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -1136,6 +1201,7 @@
           </div>
 
           <button type="submit" class="submit-btn" id="submitBtn">Confirm RSVP</button>
+          <div class="rsvp-count" id="rsvpCount">RSVPs are saved securely online</div>
         </form>
       </div>
 
@@ -1166,10 +1232,34 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3h3a5.5 5.5 0 0 0 2.5 3.2v3.1a8.5 8.5 0 0 1-5.5-2V15a5.5 5.5 0 1 1-5.5-5.5h.5v3.1a2.5 2.5 0 1 0 2 2.4V3h3Z"></path></svg>
       </a>
     </div>
-    Powered by SyreTech Solutions &copy; All rights reserved.
+    Powered by
+    <button class="syretech-trigger" id="syretechTrigger" type="button" aria-expanded="false" aria-controls="syretechContact">
+      SyreTech Solutions
+    </button>
+    &copy; All rights reserved.
+    <div class="syretech-contact" id="syretechContact" aria-hidden="true">
+      <strong>SyreTech Solutions</strong>
+      <a href="mailto:matlhagaamogelangrefilwe@gmail.com">matlhagaamogelangrefilwe@gmail.com</a><br />
+      <a href="tel:0794090890">079 409 0890</a>
+    </div>
   </footer>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+    import { addDoc, collection, getFirestore } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: 'AIzaSyBn3Fgzpl2SWrSCEIuu7dP4478vt75T6lE',
+      authDomain: 'syreevent.firebaseapp.com',
+      projectId: 'syreevent',
+      storageBucket: 'syreevent.firebasestorage.app',
+      messagingSenderId: '382314791966',
+      appId: '1:382314791966:web:5acb87ea7507d4e1c39a0f'
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const rsvpsCollection = collection(db, 'rsvps');
     const RSVP_STORAGE_KEY = 'kwazwai_rsvps';
     const eventStart = new Date(2026, 8, 25, 18, 0, 0);
     let currentGuestName = "GUEST";
@@ -1288,6 +1378,15 @@
       });
     });
 
+    const syretechTrigger = document.getElementById('syretechTrigger');
+    const syretechContact = document.getElementById('syretechContact');
+
+    syretechTrigger.addEventListener('click', () => {
+      const isOpen = syretechContact.classList.toggle('show');
+      syretechTrigger.setAttribute('aria-expanded', String(isOpen));
+      syretechContact.setAttribute('aria-hidden', String(!isOpen));
+    });
+
     const venueVideo = document.querySelector('.venue-video-wrapper iframe');
     if (venueVideo) {
       venueVideo.src = venueVideo.src;
@@ -1383,8 +1482,16 @@
           timestamp: new Date().toISOString()
         };
 
-        const existing = JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || '[]');
-        localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify([...existing, entry]));
+        try {
+          await addDoc(rsvpsCollection, {
+            ...entry,
+            createdAt: new Date()
+          });
+        } catch (firebaseError) {
+          console.error('Failed to save RSVP to Firestore:', firebaseError);
+          saveRsvpToBrowser(entry);
+          alert('Your RSVP was saved on this device, but the online database could not be reached. Please contact Kwa Zwai to confirm.');
+        }
 
         await generateTicketCanvas(preferredName);
 
