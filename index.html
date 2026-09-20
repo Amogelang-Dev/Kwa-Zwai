@@ -239,7 +239,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
 
     .toggle-details-btn:hover {
@@ -257,7 +257,13 @@
       animation: fadeIn 0.4s ease;
     }
 
-    .venue-details-container.show { display: flex; }
+    .venue-details-container .detail-body {
+      display: none;
+    }
+
+    .venue-details-container.show .detail-body {
+      display: block;
+    }
 
     .detail-panel {
       width: 100%;
@@ -1034,9 +1040,9 @@
 
     <button class="rsvp-trigger-btn" onclick="openModal()">Reserve Your Spot</button>
 
-    <div class="venue-details-container show" id="venueDetails">
+    <div class="venue-details-container" id="venueDetails">
       <button class="toggle-details-btn" id="toggleBtn" onclick="toggleVenueDetails()">
-        <span id="toggleText">Hide Location & Venue Details</span>
+        <span id="toggleText">Show Location & Venue Details</span>
         <span class="arrow">▼</span>
       </button>
 
@@ -1093,7 +1099,7 @@
 
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="e.g. 079 076 9095" required />
+            <input type="tel" id="phone" placeholder="e.g. 0** *** ****" required />
           </div>
 
           <button type="submit" class="submit-btn" id="submitBtn">Confirm RSVP</button>
@@ -1232,11 +1238,6 @@
       detailsContainer.classList.toggle('show', shouldShow);
       toggleBtn.classList.toggle('active', shouldShow);
       toggleText.innerText = shouldShow ? 'Hide Location & Venue Details' : 'Show Location & Venue Details';
-
-      if (!shouldShow) {
-        document.getElementById('venuePanel').classList.add('collapsed');
-        document.getElementById('mapPanel').classList.add('collapsed');
-      }
     };
 
     document.querySelectorAll('.detail-toggle-btn').forEach((button) => {
