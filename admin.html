@@ -123,6 +123,7 @@
         <input id="adminPassword" type="password" autocomplete="current-password" required />
         <button type="submit">Sign in</button>
       </form>
+      <button class="secondary" id="resetPasswordBtn" type="button">Reset password</button>
       <div class="status" id="authStatus" role="status"></div>
     </section>
 
@@ -152,7 +153,7 @@
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+    import { getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
     import { collection, getFirestore, getDocs, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
     const firebaseConfig = {
@@ -211,7 +212,22 @@
       try {
         await signInWithEmailAndPassword(auth, ADMIN_EMAIL, document.getElementById('adminPassword').value);
       } catch (error) {
-        authStatus.textContent = 'Sign-in failed. Check the admin account and try again.';
+        authStatus.textContent = error.code === 'auth/user-not-found'
+          ? 'This admin email has not been created in Firebase Authentication.'
+          : 'Sign-in failed. The password may be incorrect.';
+        console.error(error);
+      }
+    });
+
+    document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
+      authStatus.textContent = 'Sending password reset email...';
+      try {
+        await sendPasswordResetEmail(auth, ADMIN_EMAIL);
+        authStatus.textContent = 'Password reset email sent. Check your inbox and spam folder.';
+      } catch (error) {
+        authStatus.textContent = error.code === 'auth/user-not-found'
+          ? 'Create this email under Firebase Authentication -> Users first.'
+          : 'Could not send the reset email. Check Firebase Authentication settings.';
         console.error(error);
       }
     });
