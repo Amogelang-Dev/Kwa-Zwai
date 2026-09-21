@@ -178,6 +178,7 @@
     const rows = document.getElementById('rsvpRows');
     const emptyState = document.getElementById('emptyState');
     const searchInput = document.getElementById('searchInput');
+    const previewMode = new URLSearchParams(window.location.search).get('preview') === '1';
     let rsvps = [];
 
     function renderRows() {
@@ -208,18 +209,34 @@
 
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
       event.preventDefault();
+
+      if (window.location.protocol === 'file:') {
+        authStatus.textContent = 'Open the hosted admin page to sign in: amogelang-dev.github.io/Kwa-Zwai/admin.html';
+        return;
+      }
+
       authStatus.textContent = 'Signing in...';
       try {
         await signInWithEmailAndPassword(auth, ADMIN_EMAIL, document.getElementById('adminPassword').value);
       } catch (error) {
-        authStatus.textContent = error.code === 'auth/user-not-found'
-          ? 'This admin email has not been created in Firebase Authentication.'
-          : 'Sign-in failed. The password may be incorrect.';
+        const messages = {
+          'auth/user-not-found': 'This admin email has not been created in Firebase Authentication.',
+          'auth/invalid-credential': 'The password is incorrect or the account is not available.',
+          'auth/invalid-login-credentials': 'The password is incorrect or the account is not available.',
+          'auth/operation-not-allowed': 'Email/password sign-in is not enabled in Firebase.',
+          'auth/requests-from-referer-<empty>-are-blocked': 'Use the hosted GitHub Pages admin URL, not a local file.'
+        };
+        authStatus.textContent = messages[error.code] || `Sign-in failed (${error.code}).`;
         console.error(error);
       }
     });
 
     document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
+      if (window.location.protocol === 'file:') {
+        authStatus.textContent = 'Open the hosted admin page before resetting your password.';
+        return;
+      }
+
       authStatus.textContent = 'Sending password reset email...';
       try {
         await sendPasswordResetEmail(auth, ADMIN_EMAIL);
@@ -247,7 +264,27 @@
       URL.revokeObjectURL(link.href);
     });
 
+    async function showPreviewDashboard() {
+      authCard.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      logoutBtn.classList.add('hidden');
+      dashboardStatus.textContent = 'Preview mode - sample data only';
+      rsvps = [
+        { name: 'Thabo Mokoena', preferredName: 'Thabo', email: 'thabo@example.com', phone: '079 000 0001', date: '21 Sep 2026, 10:15' },
+        { name: 'Lerato Dlamini', preferredName: 'Lerato', email: 'lerato@example.com', phone: '079 000 0002', date: '21 Sep 2026, 11:40' },
+        { name: 'Kabelo Ndlovu', preferredName: 'Kabelo', email: 'kabelo@example.com', phone: '079 000 0003', date: '21 Sep 2026, 13:05' }
+      ];
+      document.getElementById('totalCount').textContent = rsvps.length;
+      document.getElementById('updatedAt').textContent = 'Preview';
+      renderRows();
+    }
+
+    if (previewMode) {
+      showPreviewDashboard();
+    }
+
     onAuthStateChanged(auth, async (user) => {
+      if (previewMode) return;
       const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL;
       authCard.classList.toggle('hidden', Boolean(isAdmin));
       dashboard.classList.toggle('hidden', !isAdmin);
