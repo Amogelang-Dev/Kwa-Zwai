@@ -227,7 +227,7 @@
       } catch (error) {
         authStatus.textContent = error.code === 'auth/user-not-found'
           ? 'Create this email under Firebase Authentication -> Users first.'
-          : 'Could not send the reset email. Check Firebase Authentication settings.';
+          : `Could not send the reset email (${error.code}). Check Firebase Authentication settings.`;
         console.error(error);
       }
     });
